@@ -61,12 +61,14 @@ macro(CommonSetup)
             # other flags used in Unreal: -funwind-tables  -fdiagnostics-format=msvc -fno-inline  -Werror -fno-omit-frame-pointer  -fstack-protector -O2
             # TODO: add back -Wunused-parameter -Wno-documentation after rpclib can be compiled
             set(CMAKE_CXX_FLAGS "\
-                -std=c++14 -ggdb -Wall -Wextra -Wstrict-aliasing -Wunreachable-code -Wcast-qual -Wctor-dtor-privacy \
+                -std=c++11 -ggdb -Wall -Wextra -Wstrict-aliasing -Wunreachable-code -Wcast-qual -Wctor-dtor-privacy \
                 -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-include-dirs -Wswitch-default \
                 -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wstrict-overflow=5 -Wswitch-default -Wundef \
-                -Wno-variadic-macros -Wno-parentheses -Wno-unused-function -Wno-unused -Wno-documentation -fdiagnostics-show-option -ferror-limit=10 \
+                -Wno-variadic-macros -Wno-parentheses -Wno-unused-function -Wno-unused -Wno-documentation -fdiagnostics-show-option \
                 -pthread \
                 ${RPC_LIB_DEFINES} ${CMAKE_CXX_FLAGS}")
+            # -ferror-limit=10
+
 
             if (${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
                 # make sure to match the compiler flags with which the Unreal
@@ -89,7 +91,7 @@ macro(CommonSetup)
                 endif()
 
             else()
-                set(CXX_EXP_LIB "-lstdc++fs -fmax-errors=10 -Wnoexcept -Wstrict-null-sentinel ")
+                set(CXX_EXP_LIB "-lstdc++fs -fmax-errors=10 -Wnoexcept -Wstrict-null-sentinel")
             endif ()
         endif ()
 
