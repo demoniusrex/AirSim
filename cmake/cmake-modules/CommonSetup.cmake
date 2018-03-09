@@ -64,10 +64,10 @@ macro(CommonSetup)
                 -std=c++11 -ggdb -Wall -Wextra -Wstrict-aliasing -Wunreachable-code -Wcast-qual -Wctor-dtor-privacy \
                 -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-include-dirs -Wswitch-default \
                 -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wstrict-overflow=5 -Wswitch-default -Wundef \
-                -Wno-variadic-macros -Wno-parentheses -Wno-unused-function -Wno-unused -Wno-documentation -fdiagnostics-show-option \
+                -Wno-variadic-macros -Wno-parentheses -Wno-unused-function -Wno-unused -fdiagnostics-show-option \
                 -pthread \
                 ${RPC_LIB_DEFINES} ${CMAKE_CXX_FLAGS}")
-            # -ferror-limit=10
+            # -ferror-limit=10 -Wno-documentation 
 
 
             if (${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
