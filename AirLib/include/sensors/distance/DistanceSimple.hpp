@@ -16,9 +16,12 @@ namespace msr { namespace airlib {
 
 class DistanceSimple  : public DistanceBase {
 public:
-    DistanceSimple(const DistanceSimpleParams& params = DistanceSimpleParams())
-    : params_(params)
+    DistanceSimple(const AirSimSettings::DistanceSetting& setting = AirSimSettings::DistanceSetting())
+        : DistanceBase(setting.sensor_name)
     {
+        // initialize params
+        params_.initializeFromSettings(setting);
+
         uncorrelated_noise_ = RandomGeneratorGausianR(0.0f, params_.unnorrelated_noise_sigma);
         //correlated_noise_.initialize(params_.correlated_noise_tau, params_.correlated_noise_sigma, 0.0f);
 
@@ -75,7 +78,8 @@ private: //methods
         Output output;
         const GroundTruth& ground_truth = getGroundTruth();
 
-        auto distance = getRayLength(ground_truth.kinematics->pose + params_.relative_pose);
+        //order of Pose addition is important here because it also adds quaternions which is not commutative!
+        auto distance = getRayLength(params_.relative_pose + ground_truth.kinematics->pose);
 
         //add noise in distance (about 0.2m sigma)
         distance += uncorrelated_noise_.next();
